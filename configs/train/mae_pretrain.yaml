@@ -1,0 +1,20 @@
+# Stage-2 self-supervised pretraining of the heat-encoder (SimMIM on RadGenome).
+# Reuses the existing RadGenome volume cache; no reports needed.
+phase: mae_pretrain
+bsz_per_gpu: 2
+grad_accum: 2                # 2 * 4 GPU * 2 = 16 effective
+total_steps: 30000
+log_every: 50
+save_every: 2000
+
+optim:
+  lr: 1.5e-4
+  betas: [0.9, 0.95]
+  weight_decay: 0.05
+  warmup_ratio: 0.05
+
+mae:
+  patch: 32
+  grid: 7
+  mask_ratio: 0.6
+  norm_pix_loss: true
