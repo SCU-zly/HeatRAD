@@ -1,0 +1,23 @@
+# @package _global_
+# Profile for 4× NVIDIA H20-3e (141 GB).
+data:
+  vol_shape: [64, 224, 224]            # matches cached preprocessing
+  num_workers: 6
+
+model:
+  encoder:
+    img_size: 224
+    max_d: 96
+    gradient_checkpointing: false       # H20 has plenty of VRAM
+  decoder:
+    bf16: true
+    attn_implementation: sdpa            # switched from flash_attention_2 (build pending)
+    gradient_checkpointing: true        # 8B LoRA + ~2K prefix is heavy
+
+train:
+  bsz_per_gpu: 1
+  grad_accum: 4                         # 1 * 4 GPU * 4 = 16 effective
+  total_steps: 45000
+
+runtime:
+  nproc_per_node: 4

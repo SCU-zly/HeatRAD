@@ -1,0 +1,29 @@
+# @package _global_
+# dev_4090 profile: 4x RTX 4090, 24 GiB, no NVLink. Override hot numbers.
+data:
+  # RadGenome-ChestCT ships ct_slices as 224x224 RGB PNG; native resolution.
+  # vHeat-Tiny is pretrained at 224, so freq_embed loads with no interpolation.
+  vol_shape: [80, 224, 224]
+  dev_subset_size: 200
+  num_workers: 4
+
+model:
+  encoder:
+    img_size: 224
+    max_d: 96
+    gradient_checkpointing: true
+  decoder:
+    hf_id: ${oc.env:HEATRAD_ROOT}/checkpoints/qwen3/Qwen3-8B
+    gradient_checkpointing: true
+    bf16: true
+    attn_implementation: flash_attention_2
+
+train:
+  bsz_per_gpu: 1
+  grad_accum: 16
+  total_steps_phase_a: 2000
+  total_steps_phase_b: 10000
+  use_zero: false
+
+runtime:
+  nproc_per_node: 4

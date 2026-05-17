@@ -1,0 +1,79 @@
+name: heatrad_qwen3_8b
+
+encoder:
+  img_size: 224
+  patch_size: 4
+  in_chans: 3
+  depths: [2, 2, 9, 2]
+  dims: [96, 192, 384, 768]
+  drop_path_rate: 0.1
+  mlp_ratio: 4.0
+  pretrained_path: ${oc.env:HEATRAD_ROOT}/checkpoints/vheat/vheat_tiny_in1k.pth
+  gradient_checkpointing: true
+  max_d: 96
+
+stage1:
+  c_l: 768
+  init_temp: 1.0
+
+stage2:
+  c_l: 768
+  d: 768
+  k: 32
+
+text_anchor:
+  hf_id: ${oc.env:HEATRAD_ROOT}/checkpoints/biomedbert
+  out_dim: 768
+  pool: cls
+  organ_template: "the {organ} region"
+  organs:
+    - lung
+    - abdomen
+    - bone
+    - heart
+    - esophagus
+    - pleura
+    - mediastinum
+    - aorta
+    - trachea
+    - bronchi
+    - adrenal_gland
+    - liver
+    - left_lung_lower_lobe
+    - right_lung_lower_lobe
+    - left_lung_upper_lobe
+    - right_lung_upper_lobe
+    - right_lung_middle_lobe
+    - vertebrae
+    - kidney
+    - gallbladder
+    - spinal_canal
+    - spleen
+    - thyroid
+    - breast
+    - pulmonary_artery
+    - pancreas
+    - stomach
+    - superior_vena_cava
+    - rib
+    - sternum
+    - thymus
+    - clavicle
+
+decoder:
+  hf_id: ${oc.env:HEATRAD_ROOT}/checkpoints/qwen3/Qwen3-8B
+  d: 768
+  init_tau_o: 0.5
+  # Abstain init: paper uses +1.0, but Qwen3-LoRA + our random init makes the
+  # abstain anchor dominate at step 0, killing the gradient through Stages I/II.
+  # Init negative so visual evidence wins initially; the model can still learn
+  # to raise it whenever no organ-specific evidence exists.
+  init_abstain: -1.0
+  lora_r: 64
+  lora_alpha: 128
+  lora_dropout: 0.05
+  lora_target_modules: [q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj]
+  gradient_checkpointing: true
+  max_prefix_tokens: 4096
+  attn_implementation: flash_attention_2
+  bf16: true

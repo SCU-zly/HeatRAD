@@ -1,0 +1,24 @@
+# Large data / artifacts — never track
+runs/
+cache/
+checkpoints/
+outputs/
+*.pt
+*.pth
+*.npz
+*.npy
+*.parquet
+*.dcm
+
+# Big binaries
+*.pdf
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# Env
+.env
+*.log

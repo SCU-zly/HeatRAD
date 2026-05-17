@@ -1,0 +1,13 @@
+name: radgenome
+root: ${oc.env:RADGENOME_PATH}
+chat_train_json: ${data.root}/chat_radgenome_train.json
+chat_val_json: ${data.root}/chat_radgenome_val.json
+ct_slices_dir: ${data.root}/ct_slices
+organ_categories_json: ${data.root}/dataset/organ_lesion_categories.json
+manifest_path: ${oc.env:HEATRAD_ROOT}/cache/manifest.parquet
+dev_manifest_path: ${oc.env:HEATRAD_ROOT}/cache/dev_subset.parquet
+organ_vocab_path: ${oc.env:HEATRAD_ROOT}/heatrad/data/organ_vocab.yaml
+vol_shape: [80, 224, 224]    # overridden by profile
+dev_subset_size: 200
+num_workers: 4
+max_report_len: 512

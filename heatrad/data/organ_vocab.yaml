@@ -1,0 +1,72 @@
+# Organ vocabulary V_org. K=32, sourced verbatim from
+# RadGenome-ChestCT/dataset/organ_lesion_categories.json so that anatomy
+# mask paths align with the vocab and weak NER labels stay consistent.
+organs:
+  - lung
+  - abdomen
+  - bone
+  - heart
+  - esophagus
+  - pleura
+  - mediastinum
+  - aorta
+  - trachea
+  - bronchi
+  - adrenal_gland
+  - liver
+  - left_lung_lower_lobe
+  - right_lung_lower_lobe
+  - left_lung_upper_lobe
+  - right_lung_upper_lobe
+  - right_lung_middle_lobe
+  - vertebrae
+  - kidney
+  - gallbladder
+  - spinal_canal
+  - spleen
+  - thyroid
+  - breast
+  - pulmonary_artery
+  - pancreas
+  - stomach
+  - superior_vena_cava
+  - rib
+  - sternum
+  - thymus
+  - clavicle
+
+# Surface forms for keyword matching against report text. The first form
+# is the canonical one (matches RadGenome JSON entries with spaces).
+synonyms:
+  lung: [lung, lungs, pulmonary parenchyma]
+  abdomen: [abdomen, abdominal, upper abdomen]
+  bone: [bone, bones, osseous, bony]
+  heart: [heart, cardiac, cardiomediastinal, pericardium, pericardial]
+  esophagus: [esophagus, esophageal, oesophagus]
+  pleura: [pleura, pleural, pleural space, pleural cavity, pleural effusion, pleural thickening]
+  mediastinum: [mediastinum, mediastinal]
+  aorta: [aorta, aortic, ascending aorta, descending aorta, aortic arch, thoracic aorta]
+  trachea: [trachea, tracheal]
+  bronchi: [bronchi, bronchus, bronchial, mainstem bronchus, peribronchial]
+  adrenal_gland: [adrenal gland, adrenal glands, adrenal]
+  liver: [liver, hepatic]
+  left_lung_lower_lobe: [left lower lobe, left lung lower lobe, LLL]
+  right_lung_lower_lobe: [right lower lobe, right lung lower lobe, RLL]
+  left_lung_upper_lobe: [left upper lobe, left lung upper lobe, LUL]
+  right_lung_upper_lobe: [right upper lobe, right lung upper lobe, RUL]
+  right_lung_middle_lobe: [right middle lobe, right lung middle lobe, RML]
+  vertebrae: [vertebrae, vertebra, vertebral, spine, spinal column, thoracic vertebrae]
+  kidney: [kidney, kidneys, renal]
+  gallbladder: [gallbladder]
+  spinal_canal: [spinal canal, spinal cord]
+  spleen: [spleen, splenic]
+  thyroid: [thyroid, thyroid gland]
+  breast: [breast, breasts, mammary]
+  pulmonary_artery: [pulmonary artery, pulmonary arteries, pulmonary trunk, PA]
+  pancreas: [pancreas, pancreatic]
+  stomach: [stomach, gastric]
+  superior_vena_cava: [superior vena cava, SVC]
+  rib: [rib, ribs, costal, costal cartilage]
+  sternum: [sternum, sternal, manubrium]
+  thymus: [thymus, thymic]
+  clavicle: [clavicle, clavicular, clavicles]

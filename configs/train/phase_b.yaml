@@ -1,0 +1,35 @@
+# Phase B — Joint training (method.tex Sec. 3.6).
+# Full L = w_att L_att + w_anc L_anc + w_gen L_gen.
+# All parameters trainable except the BiomedBERT backbone (frozen via PEFT).
+phase: b
+
+trainable:
+  encoder_lora: true
+  encoder_full: true
+  anomaly_head: true
+  qformer: true
+  text_anchor_lora: true
+  decoder_lora: true
+
+loss_flags:
+  use_att: true
+  use_anc: true
+  use_gen: true
+
+w_att: 1.0
+w_anc: 0.5
+w_gen: 1.0
+
+optim:
+  lr: 1.0e-4
+  encoder_lr_scale: 0.1
+  betas: [0.9, 0.95]
+  weight_decay: 0.05
+  warmup_ratio: 0.03
+
+bsz_per_gpu: 1
+grad_accum: 16
+total_steps: 10000
+log_every: 50
+val_every: 500
+save_every: 1000

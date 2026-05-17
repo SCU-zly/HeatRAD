@@ -1,0 +1,15 @@
+# Single-phase joint training (Sec. 4.2).
+phase: main
+bsz_per_gpu: 1
+grad_accum: 4
+total_steps: 45000           # ~30 epochs at 24128/16 = 1508 steps/epoch
+log_every: 50
+val_every: 1000
+save_every: 2000
+
+optim:
+  lr_vis: 1.0e-4
+  lr_lora: 1.0e-4              # halved from 2e-4 (Stage I destabilized at peak)
+  betas: [0.9, 0.999]
+  weight_decay: 0.05
+  warmup_ratio: 0.033        # ~1 epoch warmup

@@ -1,0 +1,26 @@
+# @package _global_
+# h20 profile: 6x H20 141 GB. Match the original plan.md numbers.
+data:
+  vol_shape: [128, 384, 384]
+  dev_subset_size: null
+  num_workers: 8
+
+model:
+  encoder:
+    img_size: 384
+    gradient_checkpointing: false
+  decoder:
+    hf_id: ${oc.env:HEATRAD_ROOT}/checkpoints/qwen3/Qwen3-8B
+    gradient_checkpointing: false
+    bf16: true
+    attn_implementation: flash_attention_2
+
+train:
+  bsz_per_gpu: 2
+  grad_accum: 4
+  total_steps_phase_a: 10000
+  total_steps_phase_b: 80000
+  use_zero: zero2
+
+runtime:
+  nproc_per_node: 6
